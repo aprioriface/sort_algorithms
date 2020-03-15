@@ -4,12 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sort algorithms</title>
+
+    <style>
+        body{
+            margin: 5px;
+            padding: 0;
+        }
+
+        #buttons{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 3fr 1fr;
+            grid-auto-flow: column;
+            grid-gap: 5px;
+        }
+
+        #buttons > div{
+            display: grid;
+            align-content: center;
+            justify-content: end;
+            grid-auto-flow: column;
+        }
+
+        #row{
+            position: relative;
+            margin: 5px 0 5px -5px;
+        }
+
+        #row > div{
+            align-content: center;
+            justify-content: center;
+            background-color: silver;
+            display: grid;
+            position: absolute;
+            transition: top s, left .3s;
+        }
+    </style>
+
     <script src="./randomizer.js"></script>
     <script src="./buble_sort.js"></script>
     <script src="./insert_sort.js"></script>
     <script src="./select_sort.js"></script>
 </head>
 <body>
-    
+    <div id="buttons">
+        <button>new Bubble sort</button>
+        <button>new Insert sort</button>
+        <button>new Select sort</button>
+        <div>Count:<input type="number" value="12" id="count"></div>
+        <button>Sort</button>
+    </div>
+    <div id="row"></div>
+    <span id="complexity"></span>
+
+    <script>
+        let numbers;
+
+        const buttons = document.querySelector("#buttons").children
+        buttons[0].addEventListener("click", () => numbers = new BubbleSort(parseInt(document.querySelector("#count").value), true, true))
+        buttons[1].addEventListener("click", () => numbers = new InsertSort(parseInt(document.querySelector("#count").value), true, true))
+        buttons[2].addEventListener("click", () => numbers = new SelectSort(parseInt(document.querySelector("#count").value), true, true))
+        buttons[4].addEventListener("click", () => numbers.anim_sort())
+    </script>
 </body>
 </html>

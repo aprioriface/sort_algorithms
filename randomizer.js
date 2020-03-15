@@ -1,5 +1,5 @@
 class NumberRow{
-    constructor(count, randomOrder){
+    constructor(count, randomOrder, draw){
         this.data = []
         this.length = count
         this.complexIndex = 0
@@ -10,7 +10,8 @@ class NumberRow{
 
         if (randomOrder) this._randomize()
 
-        console.log(this.array)
+        if (draw) this._draw()
+        else console.log(this.array)
     }
 
     get array(){ return this.data }
@@ -26,6 +27,10 @@ class NumberRow{
         console.log(this.array)
     }
 
+    anim_sort(){
+        console.log(this.array)
+    }
+
     _randomize(){
         const arrayMiddle = Math.floor(this.length / 2)
         for (let i = 0; i < arrayMiddle; i++){
@@ -36,5 +41,26 @@ class NumberRow{
                 this.data[rndIndex] = tmpVal
             } 
         }
+    }
+
+    _draw(){
+        let rowDiv = document.querySelector("#row")
+        if (rowDiv){
+            rowDiv.innerHTML = ""
+            rowDiv.style.height = `${ 100 / this.length }vw` 
+            for(let i in this.data){
+                const numDiv = document.createElement("DIV")
+                numDiv.innerText = this.data[i]
+                numDiv.style.width = `calc(${ 100 / this.length }vw - 10px)`
+                numDiv.style.height = `calc(${ 100 / this.length }vw - 10px)`
+                numDiv.style.left = `calc(${ 100 / this.length * i }vw + 5px)`
+                rowDiv.appendChild(numDiv)
+            }
+        }
+
+        try{
+            document.querySelector("#complexity").innerHTML = ""
+        }
+        catch(ex){}
     }
 }
